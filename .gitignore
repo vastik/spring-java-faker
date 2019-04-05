@@ -1,0 +1,12 @@
+.gradle/
+.idea/
+out/
+build/
+*.db
+.iml
+/logs/
+logs-ca-web-console/
+logs-ssm/
+*.iml
+src/main/resources/vue-app/*
+.cache/

@@ -1,0 +1,85 @@
+buildscript {
+    ext["snippetsDir"] = file('build/generated-snippets')
+
+    repositories {
+        maven { url "${nexusUrl}${nexusMavenPublic}" }
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'io.spring.gradle:propdeps-plugin:0.0.9.RELEASE'
+    }
+}
+
+plugins {
+    id "java"
+    id "idea"
+    id "nebula.release" version "6.0.2"
+    id "nebula.maven-base-publishing" version "3.0.2"
+}
+
+apply plugin: 'propdeps'
+apply plugin: 'propdeps-idea'
+
+sourceCompatibility = 1.8
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+repositories {
+    maven { url "${nexusUrl}${nexusMavenPublic}" }
+    maven {
+        url "${nexusUrl}${nexusMavenSnapshots}"
+        credentials { username "${ldapUserNexusOkp}"; password "${ldapPassNexusOkp}" }
+    }
+    maven { url "https://jitpack.io" }
+}
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-log4j2'
+    compile 'com.github.vastik:spring-extensions:1.0.6'
+    compile 'org.projectlombok:lombok'
+    compile 'com.github.javafaker:javafaker:0.13'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
+    compile group: 'org.reflections', name: 'reflections', version: '0.9.10'
+}
+
+
+compileJava.dependsOn(processResources)
+
+tasks.release.finalizedBy tasks.publish
+
+tasks.withType(Javadoc) {
+    options.encoding = 'UTF-8'
+}
+
+javadoc {
+    source = sourceSets.main.allJava
+    classpath = configurations.compile
+}
+
+project.publishing.publications {
+    nebula(MavenPublication) {
+        from components.java
+        groupId artifactGroup
+        artifactId artifactName
+        version project.version
+    }
+}
+
+project.publishing.repositories {
+    maven {
+        if (project.version.toString().endsWith('-SNAPSHOT') || project.version.toString().contains('-dev'))
+            url "${nexusUrl}${nexusMavenSnapshots}"
+        else {
+            url "${nexusUrl}${nexusMavenReleases}"
+        }
+        credentials { username "${ldapUserNexusOkp}"; password "${ldapPassNexusOkp}" }
+    }
+}
+
+configurations {
+    all*.exclude module: 'spring-boot-starter-logging'
+    providedRuntime
+    if (disableSwagger) {
+        [compile, testCompile]*.exclude group: 'io.springfox'
+    }
+}
