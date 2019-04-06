@@ -2,6 +2,7 @@ package com.vastik.spring.data.faker.source;
 
 import com.vastik.spring.data.faker.annotation.FakeFaker;
 import com.vastik.spring.data.faker.annotation.FakeRandom;
+import com.vastik.spring.data.faker.annotation.FakeValue;
 import lombok.Data;
 
 @Data
@@ -10,6 +11,9 @@ public class SimpleClass {
     @FakeRandom(15)
     private Integer count;
 
-    @FakeFaker("chuckNorris.fact")
+    @FakeFaker("gameOfThrones.dragon")
     private String name;
+
+    @FakeValue({"RED", "BLACK"})
+    private Colors colors;
 }

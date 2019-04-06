@@ -83,7 +83,7 @@ public class FieldValueSetter {
 
         if (dataFakerTypeFactory.hasTypeFakerForType(field.getType()))
             return dataFakerTypeFactory.getDataTypeFakerForType(field.getType()).getValue(field);
-        else if (field.isEnumConstant())
+        else if (field.getType().isEnum())
             return dataFakerTypeFactory.getDataTypeFakerForType(Enum.class).getValue(field);
         else if (field.isAnnotationPresent(FakeObject.class))
             return dataFaker.fake(field.getType());

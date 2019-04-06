@@ -26,6 +26,7 @@ public class DataFakerTypeFactory {
         this.setTypeFaker(LocalDateTime.class, LocalDateTimeTypeFaker.class);
         this.setTypeFaker(Long.class, LongTypeFaker.class);
         this.setTypeFaker(String.class, StringTypeFaker.class);
+        this.setTypeFaker(Enum.class, EnumTypeFaker.class);
     }
 
     public <T> void setTypeFaker(Class<T> type, Class<? extends DataTypeFaker<T>> fakeClass) {

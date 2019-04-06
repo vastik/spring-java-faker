@@ -11,9 +11,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class EnumFaker extends DataTypeFaker<Enum> {
+public class EnumTypeFaker extends DataTypeFaker<Enum> {
 
-    public EnumFaker(Faker faker) {
+    public EnumTypeFaker(Faker faker) {
         super(faker);
     }
 
