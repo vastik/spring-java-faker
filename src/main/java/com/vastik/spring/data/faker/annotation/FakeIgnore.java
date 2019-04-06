@@ -1,4 +1,4 @@
-package org.communis.spring.entity.generator.annotation;
+package com.vastik.spring.data.faker.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,5 +7,5 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface FakeInclude {
+public @interface FakeIgnore {
 }

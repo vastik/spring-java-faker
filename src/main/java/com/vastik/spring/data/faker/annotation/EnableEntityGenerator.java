@@ -1,6 +1,6 @@
-package org.communis.spring.entity.generator.annotation;
+package com.vastik.spring.data.faker.annotation;
 
-import org.communis.spring.entity.generator.configuration.EntityGeneratorImportBeanDefinitionRegistrar;
+import com.vastik.spring.data.faker.DataFakerConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.ElementType;
@@ -8,7 +8,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Import(EntityGeneratorImportBeanDefinitionRegistrar.class)
+@Import(DataFakerConfiguration.class)
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EnableEntityGenerator {
