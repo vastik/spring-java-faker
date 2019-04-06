@@ -11,7 +11,5 @@ import java.lang.annotation.Target;
 @Import(DataFakerConfiguration.class)
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface EnableEntityGenerator {
-    String[] basePackages() default {};
-    Class<?>[] basePackageClasses() default {};
+public @interface EnableDataFaker {
 }
