@@ -7,7 +7,6 @@ import java.lang.reflect.Field;
 
 @Component
 public class DataFaker {
-
     private final FieldValueSetter fieldValueSetter;
 
     public DataFaker(DataFakerTypeFactory dataFakerTypeFactory) {
