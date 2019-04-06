@@ -22,5 +22,7 @@ public class DataFakerTest {
         Assert.assertNotNull(fake.getName());
         Assert.assertNotNull(fake.getColors());
         Assert.assertTrue(fake.getColors().equals(Colors.RED) || fake.getColors().equals(Colors.BLACK));
+        Assert.assertNotNull(fake.getAnotherClass());
+        Assert.assertNotNull(fake.getAnotherClass().getName());
     }
 }

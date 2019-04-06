@@ -35,18 +35,18 @@ public class StringTypeFaker extends DataTypeFaker<String> {
 
         if (value.unset())
             AnnotationUtils.getAnnotation(annotations, FakeLetterify.class)
-                    .ifPresent(v -> value.set(faker.letterify(v.value())));
+                    .ifPresent(v -> value.set(faker.letterify(v.value(), v.uppercase())));
 
         if (value.unset())
             AnnotationUtils.getAnnotation(annotations, FakeBothify.class)
-                    .ifPresent(v -> value.set(faker.bothify(v.value())));
+                    .ifPresent(v -> value.set(faker.bothify(v.value(), v.uppercase())));
 
         if (value.unset())
             AnnotationUtils.getAnnotation(annotations, FakeNumberify.class)
                     .ifPresent(v -> value.set(faker.numerify(v.value())));
 
         if (value.unset())
-            value.set(faker.bothify("?#?#?#?#"));
+            value.set(faker.bothify("?#?#?#?#", true));
 
         return value.get();
     }

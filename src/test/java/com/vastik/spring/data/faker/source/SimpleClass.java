@@ -1,6 +1,7 @@
 package com.vastik.spring.data.faker.source;
 
 import com.vastik.spring.data.faker.annotation.FakeFaker;
+import com.vastik.spring.data.faker.annotation.FakeObject;
 import com.vastik.spring.data.faker.annotation.FakeRandom;
 import com.vastik.spring.data.faker.annotation.FakeValue;
 import lombok.Data;
@@ -16,4 +17,7 @@ public class SimpleClass {
 
     @FakeValue({"RED", "BLACK"})
     private Colors colors;
+
+    @FakeObject
+    private AnotherClass anotherClass;
 }

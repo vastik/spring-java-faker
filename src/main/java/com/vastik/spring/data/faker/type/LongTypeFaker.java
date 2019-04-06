@@ -2,7 +2,9 @@ package com.vastik.spring.data.faker.type;
 
 import com.github.javafaker.Faker;
 import com.vastik.spring.data.faker.annotation.FakeFaker;
+import com.vastik.spring.data.faker.annotation.FakeNumberBetween;
 import com.vastik.spring.data.faker.annotation.FakeRandom;
+import com.vastik.spring.data.faker.annotation.FakeRandomNumber;
 import com.vastik.spring.data.faker.utils.AnnotationUtils;
 
 import java.lang.annotation.Annotation;
@@ -34,6 +36,17 @@ public class LongTypeFaker extends DataTypeFaker<Long> {
         if (value.unset())
             AnnotationUtils.getAnnotation(annotations, FakeRandom.class)
                     .ifPresent(v -> value.set(faker.random().nextLong(v.value())));
+
+        if (value.unset())
+            AnnotationUtils.getAnnotation(annotations, FakeNumberBetween.class)
+                    .ifPresent(v -> value.set(faker.number().numberBetween(v.min(), v.max())));
+
+        if (value.unset())
+            AnnotationUtils.getAnnotation(annotations, FakeRandomNumber.class)
+                    .ifPresent(v -> value.set(faker.number().randomNumber(v.digits(), true)));
+
+        if (value.unset())
+            value.set(faker.random().nextLong());
 
         return value.get();
     }

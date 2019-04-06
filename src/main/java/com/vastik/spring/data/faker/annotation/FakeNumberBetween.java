@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface FakeBothify {
-    String value();
-    boolean uppercase() default false;
+public @interface FakeNumberBetween {
+    long min();
+    long max();
 }
