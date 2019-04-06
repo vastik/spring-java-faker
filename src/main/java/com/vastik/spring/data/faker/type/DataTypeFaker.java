@@ -3,7 +3,8 @@ package com.vastik.spring.data.faker.type;
 import com.github.javafaker.Faker;
 import org.apache.commons.lang3.StringUtils;
 
-import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 public abstract class DataTypeFaker<T> {
     protected final Faker faker;
@@ -12,7 +13,9 @@ public abstract class DataTypeFaker<T> {
         this.faker = faker;
     }
 
-    public abstract T getValue(Annotation[] annotations);
+    public abstract T getValue(Field field);
+
+    public abstract T getValue(Method method);
 
     @SuppressWarnings("unchecked")
     protected <T> T getFakerValue(String value, Class<T> cl) {

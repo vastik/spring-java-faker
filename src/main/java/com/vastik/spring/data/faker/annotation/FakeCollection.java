@@ -5,11 +5,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/**
- * If field is enum then takes random values from annotation.
- */
-@Target(ElementType.FIELD)
+@Target({ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface FakeEnumValue {
-    String[] value();
+public @interface FakeCollection {
+    int min() default 0;
+    int max() default 10;
+    boolean unique() default true;
 }

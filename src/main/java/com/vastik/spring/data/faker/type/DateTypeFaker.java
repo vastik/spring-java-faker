@@ -7,16 +7,27 @@ import com.vastik.spring.data.faker.annotation.FakePast;
 import com.vastik.spring.data.faker.utils.AnnotationUtils;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.Date;
 
-public class DateFaker extends DataTypeFaker<Date> {
+public class DateTypeFaker extends DataTypeFaker<Date> {
 
-    public DateFaker(Faker faker) {
+    public DateTypeFaker(Faker faker) {
         super(faker);
     }
 
     @Override
-    public Date getValue(Annotation[] annotations) {
+    public Date getValue(Field field) {
+        return getValue(field.getAnnotations());
+    }
+
+    @Override
+    public Date getValue(Method method) {
+        return getValue(method.getAnnotations());
+    }
+
+    private Date getValue(Annotation[] annotations) {
         final WrappedValue<Date> value = new WrappedValue<>();
 
         AnnotationUtils.getAnnotation(annotations, FakeBetween.class).ifPresent(v -> {

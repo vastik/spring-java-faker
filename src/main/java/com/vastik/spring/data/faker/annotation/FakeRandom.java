@@ -7,6 +7,6 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface FakeLetterify {
-    String value();
+public @interface FakeRandom {
+    long value() default Long.MAX_VALUE;
 }

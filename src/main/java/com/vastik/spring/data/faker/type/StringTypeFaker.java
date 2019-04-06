@@ -8,15 +8,26 @@ import com.vastik.spring.data.faker.annotation.FakeNumberify;
 import com.vastik.spring.data.faker.utils.AnnotationUtils;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
-public class StringFaker extends DataTypeFaker<String> {
+public class StringTypeFaker extends DataTypeFaker<String> {
 
-    public StringFaker(Faker faker) {
+    public StringTypeFaker(Faker faker) {
         super(faker);
     }
 
     @Override
-    public String getValue(Annotation[] annotations) {
+    public String getValue(Field field) {
+        return getValue(field.getAnnotations());
+    }
+
+    @Override
+    public String getValue(Method method) {
+        return getValue(method.getAnnotations());
+    }
+
+    private String getValue(Annotation[] annotations) {
         final WrappedValue<String> value = new WrappedValue<>();
 
         AnnotationUtils.getAnnotation(annotations, FakeFaker.class)

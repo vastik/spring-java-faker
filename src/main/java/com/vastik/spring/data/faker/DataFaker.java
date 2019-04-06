@@ -1,19 +1,32 @@
 package com.vastik.spring.data.faker;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.vastik.spring.data.faker.setters.FieldValueSetter;
 import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Field;
 
 @Component
 public class DataFaker {
 
-    @Autowired
-    private ObjectValueSetter objectValueSetter;
+    private final FieldValueSetter fieldValueSetter;
 
-    public <T> T fake(Class<? extends T> targetClass) {
-        return null;
+    public DataFaker(DataFakerTypeFactory dataFakerTypeFactory) {
+        fieldValueSetter = new FieldValueSetter(dataFakerTypeFactory, this);
     }
 
-    public <T> T fake(T instance) {
+    public <T> T fake(Class<? extends T> targetClass) throws Exception {
+        T t = targetClass.newInstance();
+        fake(targetClass, t);
+        return t;
+    }
+
+    public <T> T fake(T instance) throws Exception {
+        fake(instance.getClass(), instance);
         return instance;
+    }
+
+    private void fake(Class<?> cl, Object instance) throws Exception {
+        for (Field field : cl.getDeclaredFields())
+            fieldValueSetter.setValue(instance, field);
     }
 }
