@@ -1,23 +1,12 @@
 package com.vastik.spring.data.faker.type;
 
-import com.github.javafaker.Faker;
+import com.vastik.spring.data.faker.DataFakeContext;
+import com.vastik.spring.data.faker.DataTypeFaker;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-
-public class BooleanTypeFaker extends DataTypeFaker<Boolean> {
-
-    public BooleanTypeFaker(Faker faker) {
-        super(faker);
-    }
+public class BooleanTypeFaker implements DataTypeFaker<Boolean> {
 
     @Override
-    public Boolean getValue(Field field) {
-        return faker.bool().bool();
-    }
-
-    @Override
-    public Boolean getValue(Method method) {
-        return faker.bool().bool();
+    public Boolean getValue(DataFakeContext dataFakeContext) {
+        return dataFakeContext.getFaker().bool().bool();
     }
 }

@@ -1,27 +1,15 @@
-package com.vastik.spring.data.faker.type;
+package com.vastik.spring.data.faker.utils;
 
 import com.github.javafaker.Faker;
 import org.apache.commons.lang3.StringUtils;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-
-public abstract class DataTypeFaker<T> {
-    protected final Faker faker;
-
-    public DataTypeFaker(Faker faker) {
-        this.faker = faker;
-    }
-
-    public abstract T getValue(Field field);
-
-    public abstract T getValue(Method method);
+public final class FakerUtils {
 
     @SuppressWarnings("unchecked")
-    protected <T> T getFakerValue(String value, Class<T> cl) {
+    public static  <T> T getFakerValue(Faker faker, String value, Class<T> cl) {
         String[] methods = StringUtils.split(value, '.');
         Object result = faker;
-        Class<?> currentClass = faker.getClass();
+        Class<?> currentClass = result.getClass();
         for (String method : methods) {
             try {
                 result = currentClass.getMethod(method).invoke(result);

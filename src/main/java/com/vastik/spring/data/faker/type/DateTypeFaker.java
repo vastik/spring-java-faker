@@ -1,34 +1,23 @@
 package com.vastik.spring.data.faker.type;
 
 import com.github.javafaker.Faker;
+import com.vastik.spring.data.faker.DataFakeContext;
+import com.vastik.spring.data.faker.DataTypeFaker;
 import com.vastik.spring.data.faker.annotation.FakeBetween;
 import com.vastik.spring.data.faker.annotation.FakeFuture;
 import com.vastik.spring.data.faker.annotation.FakePast;
 import com.vastik.spring.data.faker.utils.AnnotationUtils;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.Date;
 
-public class DateTypeFaker extends DataTypeFaker<Date> {
-
-    public DateTypeFaker(Faker faker) {
-        super(faker);
-    }
+public class DateTypeFaker implements DataTypeFaker<Date> {
 
     @Override
-    public Date getValue(Field field) {
-        return getValue(field.getAnnotations());
-    }
-
-    @Override
-    public Date getValue(Method method) {
-        return getValue(method.getAnnotations());
-    }
-
-    private Date getValue(Annotation[] annotations) {
+    public Date getValue(DataFakeContext dataFakeContext) {
         final WrappedValue<Date> value = new WrappedValue<>();
+        final Faker faker = dataFakeContext.getFaker();
+        final Annotation[] annotations = dataFakeContext.getAnnotations();
 
         AnnotationUtils.getAnnotation(annotations, FakeBetween.class).ifPresent(v -> {
             Date past = faker.date().past(v.past().value(), v.past().unit());

@@ -11,4 +11,8 @@ public final class AnnotationUtils {
                 .filter(a -> a.annotationType().equals(cl))
                 .findAny();
     }
+
+    public static boolean hasAnnotation(Annotation[] annotations, Class<? extends Annotation> cl) {
+        return Arrays.stream(annotations).anyMatch(a -> a.annotationType().equals(cl));
+    }
 }

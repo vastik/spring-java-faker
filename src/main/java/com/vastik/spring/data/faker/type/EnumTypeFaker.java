@@ -1,32 +1,21 @@
 package com.vastik.spring.data.faker.type;
 
-import com.github.javafaker.Faker;
+import com.vastik.spring.data.faker.DataFakeContext;
+import com.vastik.spring.data.faker.DataTypeFaker;
 import com.vastik.spring.data.faker.annotation.FakeValue;
 import com.vastik.spring.data.faker.utils.AnnotationUtils;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class EnumTypeFaker extends DataTypeFaker<Enum> {
-
-    public EnumTypeFaker(Faker faker) {
-        super(faker);
-    }
+public class EnumTypeFaker implements DataTypeFaker<Enum> {
 
     @Override
     @SuppressWarnings("unchecked")
-    public Enum getValue(Field field) {
-        return getValue((Class<? extends Enum>) field.getType(), field.getAnnotations());
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public Enum getValue(Method method) {
-        return getValue((Class<? extends Enum>) method.getParameters()[0].getType(), method.getAnnotations());
+    public Enum getValue(DataFakeContext dataFakeContext) {
+        return getValue((Class<? extends Enum>) dataFakeContext.getType(), dataFakeContext.getAnnotations());
     }
 
     private Enum getValue(Class<? extends Enum> type, Annotation[] annotations) {

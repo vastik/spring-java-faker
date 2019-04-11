@@ -1,36 +1,28 @@
 package com.vastik.spring.data.faker.type;
 
 import com.github.javafaker.Faker;
+import com.vastik.spring.data.faker.DataFakeContext;
+import com.vastik.spring.data.faker.DataTypeFaker;
 import com.vastik.spring.data.faker.annotation.FakeFaker;
 import com.vastik.spring.data.faker.annotation.FakeNumberBetween;
 import com.vastik.spring.data.faker.annotation.FakeRandom;
 import com.vastik.spring.data.faker.annotation.FakeRandomNumber;
 import com.vastik.spring.data.faker.utils.AnnotationUtils;
+import com.vastik.spring.data.faker.utils.FakerUtils;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 
-public class IntegerTypeFaker extends DataTypeFaker<Integer> {
-    public IntegerTypeFaker(Faker faker) {
-        super(faker);
-    }
+public class IntegerTypeFaker implements DataTypeFaker<Integer> {
 
     @Override
-    public Integer getValue(Field field) {
-        return getValue(field.getAnnotations());
-    }
-
-    @Override
-    public Integer getValue(Method method) {
-        return getValue(method.getAnnotations());
-    }
-
-    private Integer getValue(Annotation[] annotations) {
+    public Integer getValue(DataFakeContext dataFakeContext) {
         final WrappedValue<Integer> value = new WrappedValue<>();
 
+        final Faker faker = dataFakeContext.getFaker();
+        final Annotation[] annotations = dataFakeContext.getAnnotations();
+
         AnnotationUtils.getAnnotation(annotations, FakeFaker.class)
-                .ifPresent(v -> value.set(getFakerValue(v.value(), Integer.class)));
+                .ifPresent(v -> value.set(FakerUtils.getFakerValue(faker, v.value(), Integer.class)));
 
         if (value.unset())
             AnnotationUtils.getAnnotation(annotations, FakeRandom.class)

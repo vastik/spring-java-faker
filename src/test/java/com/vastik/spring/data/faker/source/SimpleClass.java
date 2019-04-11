@@ -1,10 +1,12 @@
 package com.vastik.spring.data.faker.source;
 
+import com.vastik.spring.data.faker.annotation.FakeCollection;
 import com.vastik.spring.data.faker.annotation.FakeFaker;
-import com.vastik.spring.data.faker.annotation.FakeObject;
 import com.vastik.spring.data.faker.annotation.FakeRandom;
 import com.vastik.spring.data.faker.annotation.FakeValue;
 import lombok.Data;
+
+import java.util.Set;
 
 @Data
 public class SimpleClass {
@@ -18,6 +20,7 @@ public class SimpleClass {
     @FakeValue({"RED", "BLACK"})
     private Colors colors;
 
-    @FakeObject
-    private AnotherClass anotherClass;
+    @FakeRandom(25)
+    @FakeCollection(min = 5, max = 15)
+    private Set<Integer> integers;
 }

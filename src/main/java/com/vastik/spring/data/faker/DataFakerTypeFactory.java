@@ -1,6 +1,5 @@
 package com.vastik.spring.data.faker;
 
-import com.github.javafaker.Faker;
 import com.vastik.spring.data.faker.type.*;
 import org.apache.commons.collections4.BidiMap;
 import org.apache.commons.collections4.bidimap.DualHashBidiMap;
@@ -8,12 +7,11 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.Locale;
+import java.util.List;
+import java.util.Set;
 
 @Component
 public class DataFakerTypeFactory {
-
-    private Faker faker = new Faker(new Locale("ru"));
 
     private BidiMap<Class<?>, Class<? extends DataTypeFaker>> classMap = new DualHashBidiMap<>();
 
@@ -27,6 +25,8 @@ public class DataFakerTypeFactory {
         this.setTypeFaker(Long.class, LongTypeFaker.class);
         this.setTypeFaker(String.class, StringTypeFaker.class);
         this.setTypeFaker(Enum.class, EnumTypeFaker.class);
+        this.setTypeFaker(List.class, ListTypeFaker.class);
+        this.setTypeFaker(Set.class, SetTypeFaker.class);
     }
 
     public <T> void setTypeFaker(Class<T> type, Class<? extends DataTypeFaker<T>> fakeClass) {
@@ -65,11 +65,9 @@ public class DataFakerTypeFactory {
         return faker;
     }
 
-    @SuppressWarnings("unchecked")
     private <T> DataTypeFaker<T> tryInstantiateClass(Class<? extends DataTypeFaker<T>> typeFakerClass) {
         try {
-            new Faker().gameOfThrones().character();
-            return typeFakerClass.getConstructor(Faker.class).newInstance(faker);
+            return typeFakerClass.newInstance();
         } catch (Exception e) {
             throw new RuntimeException("Failed to instantiate DataTypeFaker class", e);
         }

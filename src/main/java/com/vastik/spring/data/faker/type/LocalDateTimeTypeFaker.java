@@ -1,6 +1,8 @@
 package com.vastik.spring.data.faker.type;
 
 import com.github.javafaker.Faker;
+import com.vastik.spring.data.faker.DataFakeContext;
+import com.vastik.spring.data.faker.DataTypeFaker;
 import com.vastik.spring.data.faker.annotation.FakeBetween;
 import com.vastik.spring.data.faker.annotation.FakeFuture;
 import com.vastik.spring.data.faker.annotation.FakeNow;
@@ -8,31 +10,19 @@ import com.vastik.spring.data.faker.annotation.FakePast;
 import com.vastik.spring.data.faker.utils.AnnotationUtils;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
-public class LocalDateTimeTypeFaker extends DataTypeFaker<LocalDateTime> {
-
-    public LocalDateTimeTypeFaker(Faker faker) {
-        super(faker);
-    }
+public class LocalDateTimeTypeFaker implements DataTypeFaker<LocalDateTime> {
 
     @Override
-    public LocalDateTime getValue(Field field) {
-        return getValue(field.getAnnotations());
-    }
-
-    @Override
-    public LocalDateTime getValue(Method method) {
-        return getValue(method.getAnnotations());
-    }
-
-    private LocalDateTime getValue(Annotation[] annotations) {
+    public LocalDateTime getValue(DataFakeContext dataFakeContext) {
         final WrappedValue<LocalDateTime> value = new WrappedValue<>();
+
+        final Faker faker = dataFakeContext.getFaker();
+        final Annotation[] annotations = dataFakeContext.getAnnotations();
 
         AnnotationUtils.getAnnotation(annotations, FakeBetween.class).ifPresent(v -> {
             Date past = faker.date().past(v.past().value(), v.past().unit());
