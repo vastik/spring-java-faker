@@ -1,7 +1,16 @@
 # spring-data-faker
-Annotation based object faker which using [java-faker](https://github.com/DiUS/java-faker) to generate data in spring context.
+Annotation based data faker which using [java-faker](https://github.com/DiUS/java-faker) to generate data in spring context. 
+> It's useful when you're developing a new project and need some pretty data for showcase.
 
-### Basic usage
+* [Basic usage](#usage)  
+* [Default values](#default)
+* [Annotations](#annotations)
+* [Fake enumerations](#enumerations)
+* [Fake objects](#objects)
+* [Fake collections](#collections)
+* [Custom faker](#custom-faker)
+
+<a name="usage"><h3>Basic usage</h3></a>
 1. Add [jitpack.io](https://jitpack.io) maven repository to your project:
     ```groovy
     repositories {
@@ -51,8 +60,8 @@ Annotation based object faker which using [java-faker](https://github.com/DiUS/j
         SimpleClass simpleClass = dataFaker.fake(SimpleClass.class);
     } 
     ```
-### Default values
-By default DataFaker will try to fake all fields that public or has public setters. By default DataFaker can fake next types:
+<a name="default"><h3>Default values</h3></a>
+By default DataFaker will try to fake all fields that public or has public setters. By default DataFaker can fake next classes:
 - Boolean
 - Integer
 - Date
@@ -63,30 +72,24 @@ By default DataFaker will try to fake all fields that public or has public sette
 - List
 - Set
 
-### Basic Annotations
+<a name="annotations"><h3>Basic Annotations</h3></a>
 * ##### @FakeFuture
     Faker method: [date.future](http://dius.github.io/java-faker/apidocs/com/github/javafaker/DateAndTime.html#between(java.util.Date,%20java.util.Date))
-    
     Supported class: **java.lang.Date**, **java.lang.LocalDateTime**
-    
     ```java
     @FakeFuture(value = 10, unit = TimeUnit.DAYS)
     private LocalDateTime dateOpen;
     ```
 * ##### @FakePast
     Faker method: [date.past](http://dius.github.io/java-faker/apidocs/com/github/javafaker/DateAndTime.html#past(int,%20java.util.concurrent.TimeUnit))
-    
     Supported class: **java.lang.Date**, **java.lang.LocalDateTime**
-    
     ```java
     @FakePast(value = 5, unit = TimeUnit.DAYS)
     private LocalDateTime dateOpen;
     ```
 * ##### @FakeBetween
     Faker method: [date.between](http://dius.github.io/java-faker/apidocs/com/github/javafaker/DateAndTime.html#between(java.util.Date,%20java.util.Date))
-    
     Supported class: **java.lang.Date**, **java.lang.LocalDateTime**
-    
     Notes: Use **@FakePast** and **@FakeFuture** annotations to define time interval.
     ```java
     @FakeBetween(
@@ -98,9 +101,7 @@ By default DataFaker will try to fake all fields that public or has public sette
     
 * ##### @FakeNow
     Will call **LocalDateTime.now()** on this field.
-    
     Supported class: **java.lang.Date**, **java.lang.LocalDateTime**
-    
     ```java
     @FakeNow
     private LocalDateTime dateOpen;
@@ -108,9 +109,7 @@ By default DataFaker will try to fake all fields that public or has public sette
     
 * ##### @FakeLetterify
     Faker method: [letterfiy](http://dius.github.io/java-faker/apidocs/com/github/javafaker/Faker.html#letterify(java.lang.String))
-    
     Supported class: **java.lang.String**
-    
     ```java
     @FakeLetterify("12??34")
     private String callerId;
@@ -118,9 +117,7 @@ By default DataFaker will try to fake all fields that public or has public sette
     
 * ##### @FakeBothify
     Faker method: [bothify](http://dius.github.io/java-faker/apidocs/com/github/javafaker/Faker.html#bothify(java.lang.String))
-    
     Supported class: **java.lang.String**
-    
     ```java
     @FakeBothify("###???")
     private String callerId;
@@ -128,18 +125,14 @@ By default DataFaker will try to fake all fields that public or has public sette
 
 * ##### @FakeNumberify
     Faker method: [numberify](http://dius.github.io/java-faker/apidocs/com/github/javafaker/Faker.html#numerify(java.lang.String))
-    
     Supported class: **java.lang.String**
-    
     ```java
     @FakeBothify("ABC##EFG")
     private String callerId;
     ```
 * ##### @FakeRandom
     Faker method: [Number::randomNumber](http://dius.github.io/java-faker/apidocs/com/github/javafaker/Number.html#randomNumber())
-    
     Supported class: **java.lang.Interger**, **java.lang.Long**
-    
     ```java
     @FakeRandom(15)
     private Integer updateInterval;
@@ -147,31 +140,28 @@ By default DataFaker will try to fake all fields that public or has public sette
     
 * ##### @FakeRandomNumber
     Faker method: [Number::randomNumber(digits)](http://dius.github.io/java-faker/apidocs/com/github/javafaker/Number.html#randomNumber(int,%20boolean))
-    
     Supported class: **java.lang.Interger**, **java.lang.Long**
-    
     ```java
     @FakeRandomNumber(digits = 7)
     private Integer phone;
     ```   
- * ##### @FakeNumberBetween   
+ * ##### @FakeNumberBetween
     Faker method: [Number::numberBetween](http://dius.github.io/java-faker/apidocs/com/github/javafaker/Number.html#numberBetween(long,%20long))
-    
     Supported class: **java.lang.Interger**, **java.lang.Long**
     ```java
     @FakeNumberBetween(min = 15, max = 20)
     private Integer phone;
     ```      
 
-### Custom faker method
+<a name="method"><h3>Custom faker method</h3></a>
 You can call custom faker method by using **@FakeFaker** annotation that takes faker method chain. For example:
-```java
+```
 @FakeFaker("gameOfThrones.dragon")
 private String name;
 ```
 The only limitation here is that the calling method **should not take any arguments**.
 
-### Fake enumerations
+<a name="enumerations"><h3>Fake enumerations</h3></a>
 If field is enum then **DataFaker** will try to apply random value from target enum class. If you want to use specific values from your enumeration, you can place **@FakeValue** annotation that provide a list of possible enum values.
 ```java
 public enum Colors {
@@ -184,10 +174,10 @@ public enum Colors {
 private Colors colors;
 ```
 
-### Fake nested objects
+<a name="objects"><h3>Fake objects</h3></a>
 If you want to fake custom classes in your class you can use **@FakeObject** annotation. **Be careful! Applying this annotation on self-referenced or bi-directional classes will result in endless recursive process!**
 
-### Fake collections
+<a name="collections"><h3>Fake collections</h3></a>
 You can fake **java.util.List**, **java.util.Set** by placing **@Fake**-annotation that match generic type of your collection. **@FakeCollection** allows you to set size of elements in result collection. For example:
 ```java
 @FakeFaker("gameOfThrones.dragon")
@@ -195,14 +185,14 @@ You can fake **java.util.List**, **java.util.Set** by placing **@Fake**-annotati
 private List<String> dragonNames;
 ```
 
-### Ignoring fields
+<a name="ignoring"><h3>Ignoring fields</h3></a>
 If you don't want to ignore field apply **@FakeIgnore** on it.
 ```java
 @FakeIgnore
 private String password;
 ```
 
-### Custom type faker
+<a name="custom-faker"><h3>Custom type faker</h3></a>
 If you want to fake custom types in your classes you should:
  - Creating class that implements **DataTypeFaker** interface
     ```java
@@ -224,8 +214,7 @@ If you want to fake custom types in your classes you should:
         }
     }
     ```
-
-### Custom DataTypeFaker for specific field
+    
 You can specify custom DataTypeFaker for single field by using annotation **@FakeCustom**
 ```java
 @FakeCustom(BooleanTypeFaker.class)
