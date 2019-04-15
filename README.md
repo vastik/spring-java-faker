@@ -165,7 +165,7 @@ By default DataFaker will try to fake all fields that public or has public sette
 
 ### Custom faker method
 You can call custom faker method by using **@FakeFaker** annotation that takes faker method chain. For example:
-```
+```java
 @FakeFaker("gameOfThrones.dragon")
 private String name;
 ```
