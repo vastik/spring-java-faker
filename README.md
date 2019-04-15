@@ -65,7 +65,7 @@ By default DataFaker will try to fake all fields that public or has public sette
 - Boolean (using faker's [bool.bool](http://dius.github.io/java-faker/apidocs/com/github/javafaker/Bool.html#bool()))
 - Integer (using [random.nextInt](https://docs.oracle.com/javase/6/docs/api/java/util/Random.html#nextInt()))
 - Date (only if @Fake-annotation present)
-- LocalDateTime (only if Fake-annotation present)
+- LocalDateTime (only if @Fake-annotation present)
 - Long (using [random.nextLong](https://docs.oracle.com/javase/6/docs/api/java/util/Random.html#nextLong()))
 - String (using faker's [bothify](http://dius.github.io/java-faker/apidocs/com/github/javafaker/Faker.html#bothify(java.lang.String)))
 - Enumerations (by picking random value)
