@@ -75,6 +75,7 @@ By default DataFaker will try to fake all fields that public or has public sette
 <a name="annotations"><h3>Annotations</h3></a>
 * ##### @FakeFuture
     Faker method: [date.future](http://dius.github.io/java-faker/apidocs/com/github/javafaker/DateAndTime.html#between(java.util.Date,%20java.util.Date))
+    
     Supported class: **java.lang.Date**, **java.lang.LocalDateTime**
     ```java
     @FakeFuture(value = 10, unit = TimeUnit.DAYS)
@@ -82,6 +83,7 @@ By default DataFaker will try to fake all fields that public or has public sette
     ```
 * ##### @FakePast
     Faker method: [date.past](http://dius.github.io/java-faker/apidocs/com/github/javafaker/DateAndTime.html#past(int,%20java.util.concurrent.TimeUnit))
+    
     Supported class: **java.lang.Date**, **java.lang.LocalDateTime**
     ```java
     @FakePast(value = 5, unit = TimeUnit.DAYS)
@@ -89,7 +91,9 @@ By default DataFaker will try to fake all fields that public or has public sette
     ```
 * ##### @FakeBetween
     Faker method: [date.between](http://dius.github.io/java-faker/apidocs/com/github/javafaker/DateAndTime.html#between(java.util.Date,%20java.util.Date))
+    
     Supported class: **java.lang.Date**, **java.lang.LocalDateTime**
+    
     Notes: Use **@FakePast** and **@FakeFuture** annotations to define time interval.
     ```java
     @FakeBetween(
@@ -101,6 +105,7 @@ By default DataFaker will try to fake all fields that public or has public sette
     
 * ##### @FakeNow
     Will call **LocalDateTime.now()** on this field.
+    
     Supported class: **java.lang.Date**, **java.lang.LocalDateTime**
     ```java
     @FakeNow
@@ -109,6 +114,7 @@ By default DataFaker will try to fake all fields that public or has public sette
     
 * ##### @FakeLetterify
     Faker method: [letterfiy](http://dius.github.io/java-faker/apidocs/com/github/javafaker/Faker.html#letterify(java.lang.String))
+    
     Supported class: **java.lang.String**
     ```java
     @FakeLetterify("12??34")
@@ -117,6 +123,7 @@ By default DataFaker will try to fake all fields that public or has public sette
     
 * ##### @FakeBothify
     Faker method: [bothify](http://dius.github.io/java-faker/apidocs/com/github/javafaker/Faker.html#bothify(java.lang.String))
+    
     Supported class: **java.lang.String**
     ```java
     @FakeBothify("###???")
@@ -125,6 +132,7 @@ By default DataFaker will try to fake all fields that public or has public sette
 
 * ##### @FakeNumberify
     Faker method: [numberify](http://dius.github.io/java-faker/apidocs/com/github/javafaker/Faker.html#numerify(java.lang.String))
+    
     Supported class: **java.lang.String**
     ```java
     @FakeBothify("ABC##EFG")
@@ -132,6 +140,7 @@ By default DataFaker will try to fake all fields that public or has public sette
     ```
 * ##### @FakeRandom
     Faker method: [Number::randomNumber](http://dius.github.io/java-faker/apidocs/com/github/javafaker/Number.html#randomNumber())
+    
     Supported class: **java.lang.Interger**, **java.lang.Long**
     ```java
     @FakeRandom(15)
@@ -140,6 +149,7 @@ By default DataFaker will try to fake all fields that public or has public sette
     
 * ##### @FakeRandomNumber
     Faker method: [Number::randomNumber(digits)](http://dius.github.io/java-faker/apidocs/com/github/javafaker/Number.html#randomNumber(int,%20boolean))
+    
     Supported class: **java.lang.Interger**, **java.lang.Long**
     ```java
     @FakeRandomNumber(digits = 7)
@@ -147,7 +157,8 @@ By default DataFaker will try to fake all fields that public or has public sette
     ```   
  * ##### @FakeNumberBetween
     Faker method: [Number::numberBetween](http://dius.github.io/java-faker/apidocs/com/github/javafaker/Number.html#numberBetween(long,%20long))
-    Supported class: **java.lang.Interger**, **java.lang.Long**
+    
+    Supported class: **java.lang.Integer**, **java.lang.Long**
     ```java
     @FakeNumberBetween(min = 15, max = 20)
     private Integer phone;
