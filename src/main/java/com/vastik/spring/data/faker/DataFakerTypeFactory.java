@@ -3,14 +3,12 @@ package com.vastik.spring.data.faker;
 import com.vastik.spring.data.faker.type.*;
 import org.apache.commons.collections4.BidiMap;
 import org.apache.commons.collections4.bidimap.DualHashBidiMap;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-@Component
 public class DataFakerTypeFactory {
 
     private BidiMap<Class<?>, Class<? extends DataTypeFaker>> classMap = new DualHashBidiMap<>();
