@@ -1,14 +1,14 @@
 # spring-data-faker
-Annotation based data faker which using [java-faker](https://github.com/DiUS/java-faker) to generate data in spring context. 
-> It's useful when you're developing a new project and need some pretty data for showcase.
+This library allows you to generate fake data and customize it by using annotations. It uses [java-faker](https://github.com/DiUS/java-faker) as main fake data source and supports enumerations, collections and user-defined types.
 
 * [Basic usage](#usage)  
-* [Default values](#default)
+* [Defaults](#default)
 * [Annotations](#annotations)
-* [Fake enumerations](#enumerations)
-* [Fake objects](#objects)
-* [Fake collections](#collections)
-* [Custom faker](#custom-faker)
+* [Enumerations](#enumerations)
+* [Collections](#collections)
+* [Objects](#objects)
+* [Custom fakers](#custom-faker)
+* [Ignoring](#ignoring)
 
 <a name="usage"><h3>Basic usage</h3></a>
 1. Add [jitpack.io](https://jitpack.io) maven repository to your project:
@@ -60,19 +60,19 @@ Annotation based data faker which using [java-faker](https://github.com/DiUS/jav
         SimpleClass simpleClass = dataFaker.fake(SimpleClass.class);
     } 
     ```
-<a name="default"><h3>Default values</h3></a>
+<a name="default"><h3>Defaults</h3></a>
 By default DataFaker will try to fake all fields that public or has public setters. By default DataFaker can fake next classes:
-- Boolean
-- Integer
-- Date
-- LocalDateTime
-- Long
-- String
-- Enum (any enumeration)
+- Boolean (using faker's [bool.bool](http://dius.github.io/java-faker/apidocs/com/github/javafaker/Bool.html#bool()))
+- Integer (using [random.nextInt](https://docs.oracle.com/javase/6/docs/api/java/util/Random.html#nextInt()))
+- Date (only if @Fake-annotation present)
+- LocalDateTime (only if Fake-annotation present)
+- Long (using [random.nextLong](https://docs.oracle.com/javase/6/docs/api/java/util/Random.html#nextLong()))
+- String (using faker's [bothify](http://dius.github.io/java-faker/apidocs/com/github/javafaker/Faker.html#bothify(java.lang.String)))
+- Enumerations (by picking random value)
 - List
 - Set
 
-<a name="annotations"><h3>Basic Annotations</h3></a>
+<a name="annotations"><h3>Annotations</h3></a>
 * ##### @FakeFuture
     Faker method: [date.future](http://dius.github.io/java-faker/apidocs/com/github/javafaker/DateAndTime.html#between(java.util.Date,%20java.util.Date))
     Supported class: **java.lang.Date**, **java.lang.LocalDateTime**
@@ -152,16 +152,15 @@ By default DataFaker will try to fake all fields that public or has public sette
     @FakeNumberBetween(min = 15, max = 20)
     private Integer phone;
     ```      
-
-<a name="method"><h3>Custom faker method</h3></a>
-You can call custom faker method by using **@FakeFaker** annotation that takes faker method chain. For example:
-```
-@FakeFaker("gameOfThrones.dragon")
-private String name;
-```
-The only limitation here is that the calling method **should not take any arguments**.
-
-<a name="enumerations"><h3>Fake enumerations</h3></a>
+  * ##### @FakeFaker
+    You can call custom faker method by using **@FakeFaker** annotation that takes faker method chain. For example:
+    ```
+    @FakeFaker("gameOfThrones.dragon")
+    private String name;
+    ```
+    The only limitation here is that the calling method **should not take any arguments**.
+    
+<a name="enumerations"><h3>Enumerations</h3></a>
 If field is enum then **DataFaker** will try to apply random value from target enum class. If you want to use specific values from your enumeration, you can place **@FakeValue** annotation that provide a list of possible enum values.
 ```java
 public enum Colors {
@@ -174,7 +173,7 @@ public enum Colors {
 private Colors colors;
 ```
 
-<a name="objects"><h3>Fake objects</h3></a>
+<a name="objects"><h3>Objects</h3></a>
 If you want to fake custom classes in your class you can use **@FakeObject** annotation. **Be careful! Applying this annotation on self-referenced or bi-directional classes will result in endless recursive process!**
 
 <a name="collections"><h3>Fake collections</h3></a>
@@ -185,14 +184,7 @@ You can fake **java.util.List**, **java.util.Set** by placing **@Fake**-annotati
 private List<String> dragonNames;
 ```
 
-<a name="ignoring"><h3>Ignoring fields</h3></a>
-If you don't want to ignore field apply **@FakeIgnore** on it.
-```java
-@FakeIgnore
-private String password;
-```
-
-<a name="custom-faker"><h3>Custom type faker</h3></a>
+<a name="custom-faker"><h3>Custom fakers</h3></a>
 If you want to fake custom types in your classes you should:
  - Creating class that implements **DataTypeFaker** interface
     ```java
@@ -215,9 +207,15 @@ If you want to fake custom types in your classes you should:
     }
     ```
     
-You can specify custom DataTypeFaker for single field by using annotation **@FakeCustom**
+Also you can specify custom DataTypeFaker for field by using annotation **@FakeCustom**
 ```java
 @FakeCustom(BooleanTypeFaker.class)
 Boolean hasValue;
 ```
     
+<a name="ignoring"><h3>Ignoring</h3></a>
+If you want to ignore specific field just apply **@FakeIgnore** on it.
+```java
+@FakeIgnore
+private String password;
+```
