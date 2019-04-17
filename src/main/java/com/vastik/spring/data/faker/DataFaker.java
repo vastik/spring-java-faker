@@ -17,12 +17,11 @@ import java.util.Arrays;
 @Component
 @Log4j2
 public class DataFaker {
-    private final DataFakerTypeFactory factory;
+    private final DataFakerTypeFactory factory = new DataFakerTypeFactory();
     private final DataFakerValueProvider valueProvider;
     private final Faker faker = new Faker();
 
-    public DataFaker(DataFakerTypeFactory factory) {
-        this.factory = factory;
+    public DataFaker() {
         this.valueProvider = new DataFakerValueProvider(factory, this);
     }
 

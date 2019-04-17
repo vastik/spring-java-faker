@@ -1,7 +1,6 @@
 package com.vastik.spring.data.faker.test;
 
 import com.vastik.spring.data.faker.DataFaker;
-import com.vastik.spring.data.faker.DataFakerTypeFactory;
 import com.vastik.spring.data.faker.source.SimpleClass;
 import org.junit.Assert;
 import org.junit.Test;
@@ -13,7 +12,7 @@ public class DataFakerTest {
 
     @Test
     public void test() throws Exception {
-        DataFaker dataFaker = new DataFaker(new DataFakerTypeFactory());
+        DataFaker dataFaker = new DataFaker();
         SimpleClass fake = dataFaker.fake(SimpleClass.class);
 
         Assert.assertNotNull(fake.getCount());
