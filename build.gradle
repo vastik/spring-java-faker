@@ -23,7 +23,7 @@ dependencies {
 
 release {
     preCommitText = ''
-    preTagCommitMessage = 'RELEASE'
-    tagCommitMessage = ''
-    newVersionCommitMessage = ''
+    preTagCommitMessage = 'UPD: '
+    tagCommitMessage = 'UPD: '
+    newVersionCommitMessage = 'UPD: '
 }
