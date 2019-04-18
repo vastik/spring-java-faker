@@ -14,7 +14,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter:1.5.15.RELEASE'
     implementation 'org.springframework.boot:spring-boot-starter-log4j2:1.5.15.RELEASE'
     implementation 'com.github.javafaker:javafaker:0.13'
-    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.projectlombok:lombok:1.18.6'
 }
