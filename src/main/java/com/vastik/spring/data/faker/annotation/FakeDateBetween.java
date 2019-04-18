@@ -7,6 +7,7 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface FakeRandom {
-    long value() default Long.MAX_VALUE;
+public @interface FakeDateBetween {
+    FakeDatePast past();
+    FakeDateFuture future();
 }

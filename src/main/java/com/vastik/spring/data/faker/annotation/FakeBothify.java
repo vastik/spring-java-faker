@@ -9,5 +9,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FakeBothify {
     String value();
-    boolean uppercase() default false;
+    boolean upper() default false;
 }

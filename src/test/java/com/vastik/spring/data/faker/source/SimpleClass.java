@@ -1,9 +1,6 @@
 package com.vastik.spring.data.faker.source;
 
-import com.vastik.spring.data.faker.annotation.FakeCollection;
-import com.vastik.spring.data.faker.annotation.FakeFaker;
-import com.vastik.spring.data.faker.annotation.FakeRandom;
-import com.vastik.spring.data.faker.annotation.FakeValue;
+import com.vastik.spring.data.faker.annotation.*;
 import lombok.Data;
 
 import java.util.Set;
@@ -11,16 +8,19 @@ import java.util.Set;
 @Data
 public class SimpleClass {
 
-    @FakeRandom(15)
-    private Integer count;
+    @FakeNumberRandom(15)
+    private int count;
 
     @FakeFaker("gameOfThrones.dragon")
     private String name;
 
-    @FakeValue({"RED", "BLACK"})
+    @FakeEnum({"RED", "BLACK"})
     private Colors colors;
 
-    @FakeRandom(25)
+    @FakeNumberRandom(25)
     @FakeCollection(min = 5, max = 15)
     private Set<Integer> integers;
+
+    @FakeInclude
+    private AnotherClass anotherClass;
 }

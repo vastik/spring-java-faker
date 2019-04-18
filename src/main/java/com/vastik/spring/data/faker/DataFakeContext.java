@@ -13,11 +13,11 @@ public class DataFakeContext {
     private final ParameterizedType parameterizedType;
 
     public DataFakeContext(DataFaker dataFaker,
-                           Annotation[] annotations,
+                           Faker faker, Annotation[] annotations,
                            Class<?> type,
                            ParameterizedType parameterizedType) {
-        this.faker = dataFaker.getFaker();
         this.dataFaker = dataFaker;
+        this.faker = faker;
         this.annotations = annotations;
         this.type = type;
         this.parameterizedType = parameterizedType;

@@ -7,6 +7,6 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface FakeRandomNumber {
-    int digits();
+public @interface FakeEnum {
+    String[] value() default "";
 }

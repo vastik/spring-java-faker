@@ -1,9 +1,9 @@
 package com.vastik.spring.data.faker.source;
 
+import com.vastik.spring.data.faker.annotation.FakeDatePast;
 import com.vastik.spring.data.faker.annotation.FakeFaker;
+import com.vastik.spring.data.faker.annotation.FakeNumberDigits;
 import com.vastik.spring.data.faker.annotation.FakeNumberify;
-import com.vastik.spring.data.faker.annotation.FakePast;
-import com.vastik.spring.data.faker.annotation.FakeRandomNumber;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -13,10 +13,10 @@ import java.util.concurrent.TimeUnit;
 public class AnotherClass {
     private String name;
 
-    @FakePast(value = 15, unit = TimeUnit.DAYS)
+    @FakeDatePast(value = 15, unit = TimeUnit.DAYS)
     LocalDateTime time ;
 
-    @FakeRandomNumber(digits = 7)
+    @FakeNumberDigits(7)
     Integer number;
 
     @FakeNumberify("+38071#######")

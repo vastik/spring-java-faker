@@ -1,11 +1,9 @@
 package com.vastik.spring.data.faker;
 
 import com.github.javafaker.Faker;
-import com.vastik.spring.data.faker.annotation.FakeIgnore;
-import com.vastik.spring.data.faker.annotation.FakeOverride;
-import com.vastik.spring.data.faker.utils.FieldUtils;
-import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import java.beans.Expression;
@@ -15,14 +13,12 @@ import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
 
 @Component
-@Log4j2
 public class DataFaker {
-    private final DataFakerTypeFactory factory = new DataFakerTypeFactory();
-    private final DataFakerValueProvider valueProvider;
+    private final DataFakerRegistry registry = new DataFakerRegistry();
     private final Faker faker = new Faker();
+    private final static Logger log = LogManager.getLogger(DataFaker.class);
 
     public DataFaker() {
-        this.valueProvider = new DataFakerValueProvider(factory, this);
     }
 
     public <T> T fake(Class<? extends T> targetClass) throws Exception {
@@ -45,18 +41,15 @@ public class DataFaker {
         if (!field.isAccessible() && !hasSetter(o, field))
             return;
 
-        if (field.isAnnotationPresent(FakeIgnore.class))
-            return;
-
-        if (field.isAnnotationPresent(FakeOverride.class) && !canOverride(o, field))
-            return;
-
         ParameterizedType parameterizedType = null;
         if (field.getGenericType() instanceof ParameterizedType)
             parameterizedType = (ParameterizedType)field.getGenericType();
 
-        DataFakeContext context = new DataFakeContext(this, field.getAnnotations(), field.getType(), parameterizedType);
-        Object object = valueProvider.getValue(context);
+        DataFakeContext context = new DataFakeContext(this, faker, field.getAnnotations(), field.getType(), parameterizedType);
+        Object object = registry.handle(context);
+
+        if (object == null)
+            return;
 
         if (field.isAccessible())
             field.set(o, object);
@@ -77,31 +70,30 @@ public class DataFaker {
             return true;
         }
 
-        Expression expression = new Expression(o, FieldUtils.getGetter(field), new Object[0]);
+        Expression expression = new Expression(o, getGetter(field), new Object[0]);
         expression.execute();
         return expression.getValue() != null;
     }
 
     private boolean hasGetter(Object o, Field field) {
         return Arrays.stream(o.getClass().getMethods())
-                .anyMatch(method -> method.getName().equals(FieldUtils.getGetter(field)));
+                .anyMatch(method -> method.getName().equals(getGetter(field)));
     }
 
     private boolean hasSetter(Object o, Field field) {
         return Arrays.stream(o.getClass().getMethods())
-                .anyMatch(method -> method.getName().equals(FieldUtils.getSetter(field)));
+                .anyMatch(method -> method.getName().equals(getSetter(field)));
     }
 
-    public DataFakerTypeFactory getFactory() {
-        return factory;
+    public DataFakerRegistry getRegistry() {
+        return registry;
     }
 
-
-    public DataFakerValueProvider getValueProvider() {
-        return valueProvider;
+    private static String getGetter(Field field) {
+        return "set" + StringUtils.capitalize(field.getName());
     }
 
-    public Faker getFaker() {
-        return faker;
+    private static String getSetter(Field field) {
+        return "get" + StringUtils.capitalize(field.getName());
     }
 }
