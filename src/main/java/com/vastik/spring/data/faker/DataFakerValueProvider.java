@@ -15,13 +15,12 @@ public class DataFakerValueProvider {
         this.dataFaker = dataFaker;
     }
 
-    @SuppressWarnings("unchecked")
     public Object getValue(DataFakeContext context) throws Exception {
         FakeCustom fakeCustom = AnnotationUtils.getAnnotation(context.getAnnotations(), FakeCustom.class).orElse(null);
 
         if (fakeCustom != null) {
             Class<? extends DataTypeFaker> typeFakerClass = fakeCustom.value();
-            DataTypeFaker<?> dataTypeFaker = dataFakerTypeFactory.getDataTypeFaker(typeFakerClass);
+            DataTypeFaker<?> dataTypeFaker = typeFakerClass.newInstance();
             return dataTypeFaker.getValue(context);
         }
 
