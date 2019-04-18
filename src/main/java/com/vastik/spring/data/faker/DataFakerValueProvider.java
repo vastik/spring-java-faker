@@ -29,7 +29,7 @@ public class DataFakerValueProvider {
         else if (context.getType().isEnum())
             return dataFakerTypeFactory.getDataTypeFakerForType(Enum.class).getValue(context);
         else if (AnnotationUtils.hasAnnotation(context.getAnnotations(), FakeObject.class))
-            return dataFaker.fake(context);
+            return dataFaker.fake(context.getType());
 
         return null;
     }
