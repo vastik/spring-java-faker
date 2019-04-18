@@ -1,22 +1,25 @@
 package com.vastik.spring.data.faker;
 
 import com.vastik.spring.data.faker.annotation.*;
-import com.vastik.spring.data.faker.handlers.*;
+import com.vastik.spring.data.faker.handlers.DateAnnotationHandlers;
+import com.vastik.spring.data.faker.handlers.NumericAnnotationHandlers;
+import com.vastik.spring.data.faker.handlers.SimpleAnnotationHandlers;
 import com.vastik.spring.data.faker.utils.AnnotationUtils;
+import org.reflections.Reflections;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class DataFakerRegistry {
 
     private Map<Class<? extends Annotation>, AnnotationHandler<? extends Annotation>> classMap = new HashMap<>();
 
+    @SuppressWarnings("unchecked")
     DataFakerRegistry() {
-        registerHandler(FakeCollection.class, new FakeCollectionAnnotationHandler());
-        registerHandler(FakeEnum.class, new FakeEnumAnnotationHandler());
-        registerHandler(FakeFaker.class, new FakeFakerAnnotationHandler());
-
         registerHandler(FakeBoolean.class, SimpleAnnotationHandlers.fakeBooleanAnnotationHandler());
         registerHandler(FakeBothify.class, SimpleAnnotationHandlers.fakeBothifyAnnotationHandler());
         registerHandler(FakeLetterify.class, SimpleAnnotationHandlers.fakeLetterifyAnnotationHandler());
@@ -31,6 +34,28 @@ public class DataFakerRegistry {
         registerHandler(FakeDateFuture.class, DateAnnotationHandlers.fakeDateFutureAnnotationHandler());
         registerHandler(FakeDatePast.class, DateAnnotationHandlers.fakeDatePastAnnotationHandler());
         registerHandler(FakeDateNow.class, DateAnnotationHandlers.fakeDateNowAnnotationHandler());
+
+        Reflections reflections = new Reflections(getClass().getPackage().getName());
+        Set<Class<? extends AnnotationHandler>> handlers = reflections.getSubTypesOf(AnnotationHandler.class);
+
+        handlers.forEach(handler -> {
+            Class<? extends Annotation> annotationClass = null;
+            Type[] interfaces = handler.getGenericInterfaces();
+            for (Type i : interfaces) {
+                if (i instanceof ParameterizedType) {
+                    ParameterizedType type = (ParameterizedType)i;
+                    if (type.getRawType().equals(AnnotationHandler.class)) {
+                        Type actualTypeArgument = type.getActualTypeArguments()[0];
+                        annotationClass = (Class<? extends Annotation>)actualTypeArgument;
+                    }
+                }
+            }
+            try {
+                classMap.put(annotationClass, handler.newInstance());
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
     }
 
     public <T extends Annotation> void registerHandler(Class<T> annotationClass, AnnotationHandler<T> annotationHandler) {
@@ -56,7 +81,7 @@ public class DataFakerRegistry {
 
     @SuppressWarnings("unchecked")
     private <T extends Annotation> Object invokeHandler(T annotation, DataFakeContext context) throws Exception {
-        AnnotationHandler<T> handler = (AnnotationHandler<T>)classMap.get(annotation.annotationType());
+        AnnotationHandler<T> handler = (AnnotationHandler<T>) classMap.get(annotation.annotationType());
         return handler.get(annotation, context);
     }
 }

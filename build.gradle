@@ -10,10 +10,16 @@ repositories {
     mavenCentral()
 }
 
+configurations {
+    all*.exclude module: 'spring-boot-starter-logging'
+    providedRuntime
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter:1.5.15.RELEASE'
     implementation 'org.springframework.boot:spring-boot-starter-log4j2:1.5.15.RELEASE'
     implementation 'com.github.javafaker:javafaker:0.13'
+    implementation 'org.reflections:reflections:0.9.11'
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.projectlombok:lombok:1.18.6'
 }
