@@ -20,7 +20,7 @@ public class FakeEnumAnnotationHandler implements AnnotationHandler<FakeEnum> {
             return values.get(new Random().nextInt(values.size() - 1));
 
         List<String> strings = Arrays.asList(annotation.value());
-        int index = new Random().nextInt(strings.size() - 1);
+        int index = strings.size() > 1 ? new Random().nextInt(strings.size() - 1) : 1;
         String s = strings.get(index);
         return values.stream()
                 .filter(e -> e.name().equals(s))
