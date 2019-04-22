@@ -164,7 +164,7 @@ This library allows you to generate fake data and customize it by using annotati
     ```
   
   * #### @FakeCollection
-    Allws you to fake **java.util.List** or **java.util.Set** by placing **@Fake**-annotation that match generic type of your collection.
+    Allows you to fake **java.util.List** or **java.util.Set** by placing **@Fake**-annotation that match generic type of your collection.
     ```java
     @FakeFaker("gameOfThrones.dragon")
     @FakeCollection(min = 5, max = 20)
