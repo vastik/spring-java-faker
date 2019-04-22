@@ -18,7 +18,7 @@ This library allows you to generate fake data and customize it by using annotati
     }
     ```
 
-2. Add spring-data-faker to your dependencies list (make sure you using last version):
+2. Add library to your dependencies list (make sure you using last version):
     ```groovy
     compile 'com.github.vastik:spring-boot-starter-data-faker:1.0.10'
     ```
