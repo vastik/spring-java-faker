@@ -182,7 +182,7 @@ If you want to fake custom data you should:
     ```
 2. Create class that will handle your annotation by implementing **AnnotationHandler** interface
     ```java
-    public class FakeLeetAnnotationHandler implements AnnotationHandler<FakeLeetNumber.class>
+    public class FakeLeetAnnotationHandler implements AnnotationHandler<FakeLeetNumber>
     {
         @Override
         public Object get(FakeLeetNumber annotation, DataFakeContext context) throws Exception {
