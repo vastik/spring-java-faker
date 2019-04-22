@@ -3,11 +3,7 @@ This library allows you to generate fake data and customize it by using annotati
 
 * [Basic usage](#usage)  
 * [Annotations](#annotations)
-* [Enumerations](#enumerations)
-* [Collections](#collections)
-* [Objects](#objects)
-* [Custom fakers](#custom-faker)
-* [Ignoring](#ignoring)
+* [Customization](#custom-faker)
 
 <a name="usage"><h3>Basic usage</h3></a>
 1. Add [jitpack.io](https://jitpack.io) maven repository to your project:
@@ -162,6 +158,10 @@ This library allows you to generate fake data and customize it by using annotati
     ```
   * ##### @FakeInclude
     If you want to fake custom classes in your class you can use **@FakeInclude** annotation. **Applying this annotation on self-referenced or bi-directional classes will result in endless recursive process!**
+    ```java
+    @FakeInclude
+    private Contact contact;
+    ```
   
   * ##### @FakeCollection
     Allws you to fake **java.util.List** or **java.util.Set** by placing **@Fake**-annotation that match generic type of your collection.
