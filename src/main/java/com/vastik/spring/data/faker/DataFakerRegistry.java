@@ -18,7 +18,6 @@ public class DataFakerRegistry {
         registerHandler(FakeBothify.class, SimpleAnnotationHandlers.fakeBothifyAnnotationHandler());
         registerHandler(FakeLetterify.class, SimpleAnnotationHandlers.fakeLetterifyAnnotationHandler());
         registerHandler(FakeNumberify.class, SimpleAnnotationHandlers.fakeNumberifyAnnotationHandler());
-        registerHandler(FakeInclude.class, SimpleAnnotationHandlers.fakeIncludeAnnotationHandler());
 
         registerHandler(FakeNumberBetween.class, NumericAnnotationHandlers.fakeNumberBetweenAnnotationHandler());
         registerHandler(FakeNumberRandom.class, NumericAnnotationHandlers.fakeNumberRandomAnnotationHandler());
@@ -28,8 +27,11 @@ public class DataFakerRegistry {
         registerHandler(FakeDateFuture.class, DateAnnotationHandlers.fakeDateFutureAnnotationHandler());
         registerHandler(FakeDatePast.class, DateAnnotationHandlers.fakeDatePastAnnotationHandler());
         registerHandler(FakeDateNow.class, DateAnnotationHandlers.fakeDateNowAnnotationHandler());
+
+        registerHandler(FakeInclude.class, SimpleAnnotationHandlers.fakeIncludeAnnotationHandler());
         registerHandler(FakeCollection.class, new FakeCollectionAnnotationHandler());
         registerHandler(FakeEnum.class, new FakeEnumAnnotationHandler());
+        registerHandler(FakeFaker.class, new FakeFakerAnnotationHandler());
     }
 
     public <T extends Annotation> void registerHandler(Class<T> annotationClass, AnnotationHandler<T> annotationHandler) {
