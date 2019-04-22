@@ -1,10 +1,7 @@
 package com.vastik.spring.data.faker;
 
 import com.vastik.spring.data.faker.annotation.*;
-import com.vastik.spring.data.faker.handlers.DateAnnotationHandlers;
-import com.vastik.spring.data.faker.handlers.FakeCollectionAnnotationHandler;
-import com.vastik.spring.data.faker.handlers.NumericAnnotationHandlers;
-import com.vastik.spring.data.faker.handlers.SimpleAnnotationHandlers;
+import com.vastik.spring.data.faker.handlers.*;
 import com.vastik.spring.data.faker.utils.AnnotationUtils;
 
 import java.lang.annotation.Annotation;
@@ -32,6 +29,7 @@ public class DataFakerRegistry {
         registerHandler(FakeDatePast.class, DateAnnotationHandlers.fakeDatePastAnnotationHandler());
         registerHandler(FakeDateNow.class, DateAnnotationHandlers.fakeDateNowAnnotationHandler());
         registerHandler(FakeCollection.class, new FakeCollectionAnnotationHandler());
+        registerHandler(FakeEnum.class, new FakeEnumAnnotationHandler());
     }
 
     public <T extends Annotation> void registerHandler(Class<T> annotationClass, AnnotationHandler<T> annotationHandler) {
