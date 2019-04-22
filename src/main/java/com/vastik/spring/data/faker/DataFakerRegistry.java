@@ -2,17 +2,14 @@ package com.vastik.spring.data.faker;
 
 import com.vastik.spring.data.faker.annotation.*;
 import com.vastik.spring.data.faker.handlers.DateAnnotationHandlers;
+import com.vastik.spring.data.faker.handlers.FakeCollectionAnnotationHandler;
 import com.vastik.spring.data.faker.handlers.NumericAnnotationHandlers;
 import com.vastik.spring.data.faker.handlers.SimpleAnnotationHandlers;
 import com.vastik.spring.data.faker.utils.AnnotationUtils;
-import org.reflections.Reflections;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class DataFakerRegistry {
 
@@ -34,28 +31,7 @@ public class DataFakerRegistry {
         registerHandler(FakeDateFuture.class, DateAnnotationHandlers.fakeDateFutureAnnotationHandler());
         registerHandler(FakeDatePast.class, DateAnnotationHandlers.fakeDatePastAnnotationHandler());
         registerHandler(FakeDateNow.class, DateAnnotationHandlers.fakeDateNowAnnotationHandler());
-
-        Reflections reflections = new Reflections(getClass().getPackage().getName());
-        Set<Class<? extends AnnotationHandler>> handlers = reflections.getSubTypesOf(AnnotationHandler.class);
-
-        handlers.forEach(handler -> {
-            Class<? extends Annotation> annotationClass = null;
-            Type[] interfaces = handler.getGenericInterfaces();
-            for (Type i : interfaces) {
-                if (i instanceof ParameterizedType) {
-                    ParameterizedType type = (ParameterizedType)i;
-                    if (type.getRawType().equals(AnnotationHandler.class)) {
-                        Type actualTypeArgument = type.getActualTypeArguments()[0];
-                        annotationClass = (Class<? extends Annotation>)actualTypeArgument;
-                    }
-                }
-            }
-            try {
-                classMap.put(annotationClass, handler.newInstance());
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
-        });
+        registerHandler(FakeCollection.class, new FakeCollectionAnnotationHandler());
     }
 
     public <T extends Annotation> void registerHandler(Class<T> annotationClass, AnnotationHandler<T> annotationHandler) {

@@ -2,6 +2,7 @@ package com.vastik.spring.data.faker.source;
 
 import com.vastik.spring.data.faker.annotation.*;
 import lombok.Data;
+import lombok.Getter;
 
 import java.util.Set;
 
@@ -21,6 +22,7 @@ public class SimpleClass {
     @FakeCollection(min = 5, max = 15)
     private Set<Integer> integers;
 
+    @Getter
     @FakeInclude
     private AnotherClass anotherClass;
 }
