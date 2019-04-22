@@ -70,9 +70,7 @@
 * #### @FakeDateBetween
     Метод Faker: [date.between](http://dius.github.io/java-faker/apidocs/com/github/javafaker/DateAndTime.html#between(java.util.Date,%20java.util.Date))
     
-    Поддерживаемые типы: **java.lang.Date**, **java.lang.LocalDateTime**
-    
-    Notes: Use **@FakePast** and **@FakeFuture** annotations to define time interval.
+    Поддерживаемые типы: **java.lang.Date**, **java.lang.LocalDateTime**       
     ```java
     @FakeDateBetween(
                 past = @FakeDatePast(value = 5, unit = TimeUnit.DAYS), 
