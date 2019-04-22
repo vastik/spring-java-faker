@@ -47,7 +47,7 @@ This library allows you to generate fake data and customize it by using annotati
     ```
 
 <a name="annotations"><h3>Annotations</h3></a>
-* ##### @FakeDateFuture
+* #### @FakeDateFuture
     Faker method: [date.future](http://dius.github.io/java-faker/apidocs/com/github/javafaker/DateAndTime.html#between(java.util.Date,%20java.util.Date))
     
     Supported class: **java.lang.Date**, **java.lang.LocalDateTime**
@@ -55,7 +55,7 @@ This library allows you to generate fake data and customize it by using annotati
     @FakeDateFuture(value = 10, unit = TimeUnit.DAYS)
     private LocalDateTime dateOpen;
     ```
-* ##### @FakeDatePast
+* #### @FakeDatePast
     Faker method: [date.past](http://dius.github.io/java-faker/apidocs/com/github/javafaker/DateAndTime.html#past(int,%20java.util.concurrent.TimeUnit))
     
     Supported class: **java.lang.Date**, **java.lang.LocalDateTime**
@@ -63,7 +63,7 @@ This library allows you to generate fake data and customize it by using annotati
     @FakeDatePast(value = 5, unit = TimeUnit.DAYS)
     private LocalDateTime dateOpen;
     ```
-* ##### @FakeDateBetween
+* #### @FakeDateBetween
     Faker method: [date.between](http://dius.github.io/java-faker/apidocs/com/github/javafaker/DateAndTime.html#between(java.util.Date,%20java.util.Date))
     
     Supported class: **java.lang.Date**, **java.lang.LocalDateTime**
@@ -77,7 +77,7 @@ This library allows you to generate fake data and customize it by using annotati
     private LocalDateTime dateOpen;
     ```
     
-* ##### @FakeDateNow
+* #### @FakeDateNow
     Will call **LocalDateTime.now()** on this field.
     
     Supported class: **java.lang.Date**, **java.lang.LocalDateTime**
@@ -86,7 +86,7 @@ This library allows you to generate fake data and customize it by using annotati
     private LocalDateTime dateOpen;
     ```    
     
-* ##### @FakeLetterify
+* #### @FakeLetterify
     Faker method: [letterfiy](http://dius.github.io/java-faker/apidocs/com/github/javafaker/Faker.html#letterify(java.lang.String))
     
     Supported class: **java.lang.String**
@@ -95,7 +95,7 @@ This library allows you to generate fake data and customize it by using annotati
     private String callerId;
     ```
     
-* ##### @FakeBothify
+* #### @FakeBothify
     Faker method: [bothify](http://dius.github.io/java-faker/apidocs/com/github/javafaker/Faker.html#bothify(java.lang.String))
     
     Supported class: **java.lang.String**
@@ -104,7 +104,7 @@ This library allows you to generate fake data and customize it by using annotati
     private String callerId;
     ```
 
-* ##### @FakeNumberify
+* #### @FakeNumberify
     Faker method: [numberify](http://dius.github.io/java-faker/apidocs/com/github/javafaker/Faker.html#numerify(java.lang.String))
     
     Supported class: **java.lang.String**
@@ -112,7 +112,7 @@ This library allows you to generate fake data and customize it by using annotati
     @FakeBothify("ABC##EFG")
     private String callerId;
     ```
-* ##### @FakeNumberRandom
+* #### @FakeNumberRandom
     Faker method: [Number::randomNumber](http://dius.github.io/java-faker/apidocs/com/github/javafaker/Number.html#randomNumber())
     
     Supported class: **Interger**, **Long**, **Short**, **Float**, **Double**, **Byte**
@@ -121,7 +121,7 @@ This library allows you to generate fake data and customize it by using annotati
     private Integer updateInterval;
     ```
     
-* ##### @FakeNumberDigits
+* #### @FakeNumberDigits
     Faker method: [Number::randomNumber(digits)](http://dius.github.io/java-faker/apidocs/com/github/javafaker/Number.html#randomNumber(int,%20boolean))
     
     Supported class: **Interger**, **Long**, **Short**, **Float**, **Double**, **Byte**
@@ -129,7 +129,7 @@ This library allows you to generate fake data and customize it by using annotati
     @FakeRandomNumber(digits = 7)
     private Integer phone;
     ```   
- * ##### @FakeNumberBetween
+ * #### @FakeNumberBetween
     Faker method: [Number::numberBetween](http://dius.github.io/java-faker/apidocs/com/github/javafaker/Number.html#numberBetween(long,%20long))
     
     Supported class: **Interger**, **Long**, **Short**, **Float**, **Double**, **Byte**
@@ -137,14 +137,14 @@ This library allows you to generate fake data and customize it by using annotati
     @FakeNumberBetween(min = 15, max = 20)
     private Integer phone;
     ```      
-  * ##### @FakeFaker
+  * #### @FakeFaker
     You can call custom faker method by using **@FakeFaker** annotation that takes faker method chain. For example:
     ```
     @FakeFaker("gameOfThrones.dragon")
     private String name;
     ```
     The only limitation here is that the calling method **should not take any arguments**.
- * ##### @FakeEnum
+ * #### @FakeEnum
    Will apply specific values if provided or will apply random value from target enum class.
     ```java
     public enum Colors {
@@ -156,14 +156,14 @@ This library allows you to generate fake data and customize it by using annotati
     @FakeValue({"RED", "BLACK"})
     private Colors colors;
     ```
-  * ##### @FakeInclude
+  * #### @FakeInclude
     If you want to fake custom classes in your class you can use **@FakeInclude** annotation. **Applying this annotation on self-referenced or bi-directional classes will result in endless recursive process!**
     ```java
     @FakeInclude
     private Contact contact;
     ```
   
-  * ##### @FakeCollection
+  * #### @FakeCollection
     Allws you to fake **java.util.List** or **java.util.Set** by placing **@Fake**-annotation that match generic type of your collection.
     ```java
     @FakeFaker("gameOfThrones.dragon")
