@@ -18,9 +18,9 @@ This library allows you to generate fake data and customize it by using annotati
     }
     ```
 
-2. Add spring-data-faker to your dependencies list:
+2. Add spring-data-faker to your dependencies list (make sure you using last version):
     ```groovy
-    compile 'com.github.vastik:spring-data-faker:1.0.0'
+    compile 'com.github.vastik:spring-boot-starter-data-faker:1.0.10'
     ```
 
 3. Annotate your class fields with @Fake-annotations, for example:
@@ -41,17 +41,7 @@ This library allows you to generate fake data and customize it by using annotati
         private Set<Integer> integers;
     }
     ```
-4. Enable DataFaker in your spring boot application by adding annotation @EnableDataFaker in your main class.
-    ```java
-    @SpringBootApplication
-    @EnableDataFaker
-    public class AppBoot {
-        public static void main(String[] args) {
-            SpringApplication.run(AppBoot.class, args);
-        }
-    }
-    ```
-5. Use autowired DataFaker instance to fake data
+4. Use autowired DataFaker instance to fake data
     ```java
     @Autowired
     private DataFaker dataFaker;
