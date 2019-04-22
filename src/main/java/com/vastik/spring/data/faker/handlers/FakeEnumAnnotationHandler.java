@@ -16,10 +16,12 @@ public class FakeEnumAnnotationHandler implements AnnotationHandler<FakeEnum> {
         Class<? extends Enum> type = (Class<? extends Enum>) context.getType();
         List<? extends Enum> values = Arrays.asList(type.getEnumConstants());
 
-        if (annotation.value().length == 0 || annotation.value()[0].isEmpty())
-            return values.get(new Random().nextInt(values.size()));
+        if (annotation.value().length == 0)
+            return values.get(new Random().nextInt(values.size() - 1));
 
-        String s = Arrays.asList(annotation.value()).get(new Random().nextInt(values.size() - 1));
+        List<String> strings = Arrays.asList(annotation.value());
+        int index = new Random().nextInt(strings.size() - 1);
+        String s = strings.get(index);
         return values.stream()
                 .filter(e -> e.name().equals(s))
                 .findAny()
