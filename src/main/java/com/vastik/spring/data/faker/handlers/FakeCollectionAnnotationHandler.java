@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.lang.annotation.Annotation;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Component
 public class FakeCollectionAnnotationHandler implements AnnotationHandler<FakeCollection> {
@@ -34,7 +35,8 @@ public class FakeCollectionAnnotationHandler implements AnnotationHandler<FakeCo
                 typeClass,
                 null);
 
-        for (int i = annotation.min(); i <= annotation.max(); i++) {
+        int max = ThreadLocalRandom.current().nextInt(annotation.min(), annotation.max() + 1);
+        for (int i = 0; i < max; i++) {
             Object o = context.getDataFaker().getRegistry().handle(fakeContext);
             collection.add(o);
         }
