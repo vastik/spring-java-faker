@@ -14,9 +14,11 @@ repositories {
 dependencies {
     implementation 'org.apache.logging.log4j:log4j-core:2.11.1'
     implementation 'org.springframework:spring-context:4.3.18.RELEASE'
-    implementation 'com.github.javafaker:javafaker:0.13'
+    implementation 'com.github.javafaker:javafaker:1.0.2'
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.projectlombok:lombok:1.18.6'
+    testImplementation 'org.hamcrest:hamcrest:2.2'
+    testImplementation 'org.projectlombok:lombok:1.18.20'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
 }
 
 release {

@@ -13,6 +13,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
 
 @Component
+@SuppressWarnings("unused")
 public class DataFaker {
     private final DataFakerRegistry registry = new DataFakerRegistry();
     private final Faker faker = new Faker();
@@ -22,6 +23,12 @@ public class DataFaker {
     }
 
     public <T> T fake(Class<? extends T> targetClass) throws Exception {
+        try {
+            DataFakerBuilder<T> dataFakerBuilder = new DataFakerBuilder<>(targetClass, this);
+            return dataFakerBuilder.build();
+        } catch (Exception e) {
+            log.warn("Got exception while trying to use builder", e);
+        }
         T t = targetClass.newInstance();
         fake(targetClass, t);
         return t;
@@ -87,6 +94,10 @@ public class DataFaker {
 
     public DataFakerRegistry getRegistry() {
         return registry;
+    }
+
+    public Faker getFaker() {
+        return faker;
     }
 
     private static String getGetter(Field field) {
