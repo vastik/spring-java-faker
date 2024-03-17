@@ -18,7 +18,7 @@ public class DataFakerRegistry {
         registerHandler(FakeBothify.class, SimpleAnnotationHandlers.fakeBothifyAnnotationHandler());
         registerHandler(FakeLetterify.class, SimpleAnnotationHandlers.fakeLetterifyAnnotationHandler());
         registerHandler(FakeNumberify.class, SimpleAnnotationHandlers.fakeNumberifyAnnotationHandler());
-
+        registerHandler(FakeRegexify.class, SimpleAnnotationHandlers.fakeRegexifyAnnotationHandler());
         registerHandler(FakeNumberBetween.class, NumericAnnotationHandlers.fakeNumberBetweenAnnotationHandler());
         registerHandler(FakeNumberRandom.class, NumericAnnotationHandlers.fakeNumberRandomAnnotationHandler());
         registerHandler(FakeNumberDigits.class, NumericAnnotationHandlers.fakeNumberDigitsAnnotationHandler());
