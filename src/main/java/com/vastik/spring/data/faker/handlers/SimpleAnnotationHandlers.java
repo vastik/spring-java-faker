@@ -21,6 +21,10 @@ public class SimpleAnnotationHandlers {
         return (annotation, context) -> context.getFaker().numerify(annotation.value());
     }
 
+    public static AnnotationHandler<FakeRegexify> fakeRegexifyAnnotationHandler() {
+        return (annotation, context) -> context.getFaker().regexify(annotation.value());
+    }
+
     public static AnnotationHandler<FakeInclude> fakeIncludeAnnotationHandler() {
         return (annotation, context) -> context.getDataFaker().fake(context.getType());
     }
